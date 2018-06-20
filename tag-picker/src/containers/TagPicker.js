@@ -22,45 +22,45 @@ export default class TagPicker extends Component {
     onTagSelectionChange(tagId) {
         if (!this.state.selectedTags.includes(tagId)) {
             this.setState({selectedTags: [...this.state.selectedTags, tagId]},
-               () =>  console.log(this.state.selectedTags));
+                () =>  console.log(this.state.selectedTags));
         } else if (this.state.selectedTags.includes(tagId)) {
             this.unCheck(tagId);
         }
     }
 
-  render() {
-      const TagRootProps = (props) => {
-          return (<TagRoot handleCheck={this.onTagSelectionChange.bind(this)}
-                           selectedTags = {this.state.selectedTags}/>);
-      }
+    render() {
+        const TagRootProps = (props) => {
+            return (<TagRoot handleCheck={this.onTagSelectionChange.bind(this)}
+                             selectedTags = {this.state.selectedTags}/>);
+        }
 
-      const TagListProps = (props) => {
-          var path = props.location.pathname;
-          var tagid = path.substring(1, path.length)
-          return (<TagList handleCheck={this.onTagSelectionChange.bind(this)}
-                           selectedtags={this.state.selectedTags}
-                            tagId={tagid}/>);
-      }
+        const TagListProps = (props) => {
+            var path = props.location.pathname;
+            var tagid = path.substring(1, path.length)
+            return (<TagList handleCheck={this.onTagSelectionChange.bind(this)}
+                             selectedtags={this.state.selectedTags}
+                             tagId={tagid}/>);
+        }
 
-    return (
-        <Router>
-        <div className="container-fluid">
-            <table className="table">
-                <thead>{this.state.title}</thead>
-                <tbody>
-                <Link to="/"></Link>
+        return (
+            <Router>
+                <div className="container-fluid">
+                    <table className="table">
+                        <thead>{this.state.title}</thead>
+                        <tbody>
+                        <Link to="/"></Link>
 
-                <Route exact path="/"
-                       component={TagRootProps}/>
+                        <Route exact path="/"
+                               component={TagRootProps}/>
 
-                <Route exact path="/:tagId/"
-                       component={TagListProps}/>
+                        <Route exact path="/:tagId/"
+                               component={TagListProps}/>
 
-                </tbody>
-            </table>
-        </div>
-        </Router>
-    );
-  }
+                        </tbody>
+                    </table>
+                </div>
+            </Router>
+        );
+    }
 }
 

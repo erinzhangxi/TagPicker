@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import { createBrowserHistory } from 'history'
 import TagService from "../services/TagService";
 import Tag from './../components/Tag';
-import { createBrowserHistory } from 'history'
 import sortByName from './../Utils.js'
 
 const history = createBrowserHistory();
-
 
 export default class TagList extends Component {
     constructor(props) {
@@ -32,22 +31,8 @@ export default class TagList extends Component {
         this.findChildrenTags(newProps.tagId);
         this.setSelectedTags(newProps);
     }
-    setSelectedTags(props) {
-        // if (this.props.selectedtags.length == 0) {
-        //     this.setState({
-        //         selectedTags: this.props.selectedtags
-        //     });
-        // } else {
-        //     console.log(this.props);
-        //     console.log(this.props.selectedtags);
-        //
-        //     const { selectedTagsFromPath } = this.props.selectedtags;
-        //     console.log("from path " + selectedTagsFromPath);
-        //     this.setState({
-        //         selectedTags: selectedTagsFromPath
-        //     });
-        // }
 
+    setSelectedTags(props) {
         this.setState({
             selectedTags: props.selectedtags
         });
@@ -78,11 +63,11 @@ export default class TagList extends Component {
             taglist = this.state.tags
                 .sort((a, b) => sortByName(a,b))
                 .map((tag, id) => {
-               return <div key={id}> <Tag selectedTags={this.state.selectedTags}
-                                          parentId={this.state.tagId}
-                                          item={tag}
-                                          handleCheck={this.handleCheck}/></div>
-             })
+                    return <div key={id}> <Tag selectedTags={this.state.selectedTags}
+                                               parentId={this.state.tagId}
+                                               item={tag}
+                                               handleCheck={this.handleCheck}/></div>
+                })
         }
         return (
             taglist

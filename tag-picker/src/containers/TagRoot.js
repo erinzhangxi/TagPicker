@@ -52,11 +52,11 @@ export default class TagRoot extends Component {
             taglist = this.state.tags
                 .sort((a, b) => sortByName(a,b))
                 .map((tag, id) => {
-                return <div key={id}> <Tag selectedTags={this.props.selectedTags}
-                                           parentId={this.state.tagId}
-                                           item={tag}
-                                           handleCheck={this.handleCheck}/></div>
-            })
+                    return <div key={id}> <Tag selectedTags={this.props.selectedTags}
+                                               parentId={this.state.tagId}
+                                               item={tag}
+                                               handleCheck={this.handleCheck}/></div>
+                })
         }
         return (
             taglist

@@ -8,11 +8,6 @@ const sortByName = (a, b) => {
     var aA = nameA.replace(reA, "");
     var bA = nameB.replace(reA, "");
 
-    // if (nameA < nameB)
-    //     return -1;
-    // if (nameA > nameB)
-    //     return 1;
-    // return 0;
     if ((a.isFolder && b.isFolder) || (!a.isFolder && !b.isFolder)) {
         if(aA === bA) {
             var aN = parseInt(nameA.replace(reN, ""), 10);
