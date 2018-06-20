@@ -30,6 +30,7 @@ export default class FolderElement extends Component {
                     <div className="col-11">
                         <i className="fa fa-folder" aria-hidden="true"
                            style={{paddingRight: 10}}></i>
+                        {/*<Link to={`${this.props.parentId}/${this.props.item._id}`}>*/}
                         <Link to={`${this.props.item._id}`}>
                             Tag {this.props.item.name}
                         </Link>

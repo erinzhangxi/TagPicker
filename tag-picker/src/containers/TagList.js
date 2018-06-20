@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TagService from "../services/TagService";
-import Tag from './../components/Tag'
-import BrowserHistory from 'react-router'
+import Tag from './../components/Tag';
+
 
 export default class TagList extends Component {
     constructor(props) {
@@ -32,7 +32,7 @@ export default class TagList extends Component {
         var children = [];
 
         for (var i = 0; i < tags.length; i++) {
-            if (tags[i].parent === this.props.match.params.tagId) {
+            if (tags[i].parent === tagId) {
                 children.push(tags[i]);
             }
         }
@@ -57,7 +57,8 @@ export default class TagList extends Component {
         let taglist = null;
         if(this.state) {
             taglist = this.state.tags.map((tag, id) => {
-               return <div key={id}> <Tag item={tag}/></div>
+               return <div key={id}> <Tag parentId={this.state.tagId}
+                                          item={tag}/></div>
              })
         }
         return (

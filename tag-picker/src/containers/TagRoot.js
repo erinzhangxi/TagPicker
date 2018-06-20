@@ -44,7 +44,8 @@ export default class TagRoot extends Component {
         let taglist = null;
         if(this.state) {
             taglist = this.state.tags.map((tag, id) => {
-                return <div key={id}> <Tag item={tag}/></div>
+                return <div key={id}> <Tag parentId={this.state.tagId}
+                                           item={tag}/></div>
             })
         }
         return (

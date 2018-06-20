@@ -30,7 +30,8 @@ export default class Tag extends Component {
         return (
             <div className="container-fluid">
                 {this.props.item.isFolder ?
-                    <FolderElement item={this.props.item}/>
+                    <FolderElement parentId={this.props.parentId}
+                                   item={this.props.item}/>
                     :
                     <TagElement item={this.props.item}/>}
             </div>
