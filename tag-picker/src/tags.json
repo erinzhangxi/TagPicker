@@ -1,5 +1,5 @@
-[  
-   {  
+[
+   {
       "_id": "5ace4c99bfbcb25277a2e837",
       "name": "Folder A",
       "isFolder": true,
@@ -186,21 +186,21 @@
          "5ace4c9ebfbcb25277a2e838"
       ]
    },
-   {  
+   {
       "_id": "5ace4d38bfbcb25277a2e84c",
       "name": "Tag B.2",
       "isFolder": false,
       "parent": "5ace4c9ebfbcb25277a2e838",
-      "ancestors": [  
+      "ancestors": [
          "5ace4c9ebfbcb25277a2e838"
       ]
    },
-   {  
+   {
       "_id": "5ace4d3ebfbcb25277a2e84d",
       "name": "Tag B.3",
       "isFolder": false,
       "parent": "5ace4c9ebfbcb25277a2e838",
-      "ancestors": [  
+      "ancestors": [
          "5ace4c9ebfbcb25277a2e838"
       ]
    },
@@ -213,31 +213,31 @@
          "5ace4ca8bfbcb25277a2e83a"
       ]
    },
-   {  
+   {
       "_id": "5ace4d4ebfbcb25277a2e84f",
       "name": "Tag D.1",
       "isFolder": false,
       "parent": "5ace4ca8bfbcb25277a2e83a",
-      "ancestors": [  
+      "ancestors": [
          "5ace4ca8bfbcb25277a2e83a"
       ]
    },
-   {  
+   {
       "_id": "5ace4d54bfbcb25277a2e850",
       "name": "Folder D.1.1",
       "isFolder": true,
       "parent": "5ace4d4abfbcb25277a2e84e",
-      "ancestors": [  
+      "ancestors": [
          "5ace4ca8bfbcb25277a2e83a",
          "5ace4d4abfbcb25277a2e84e"
       ]
    },
-   {  
+   {
       "_id": "5ace4d58bfbcb25277a2e851",
       "name": "Tag D.1.1",
       "isFolder": false,
       "parent": "5ace4d4abfbcb25277a2e84e",
-      "ancestors": [  
+      "ancestors": [
          "5ace4ca8bfbcb25277a2e83a",
          "5ace4d4abfbcb25277a2e84e"
       ]

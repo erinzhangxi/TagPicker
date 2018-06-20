@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TagService from "../services/TagService";
 import Tag from './../components/Tag';
 import { createBrowserHistory } from 'history'
+import sortByName from './../Utils.js'
 
 const history = createBrowserHistory();
 
@@ -74,7 +75,9 @@ export default class TagList extends Component {
     renderTagItems() {
         let taglist = null;
         if(this.state) {
-            taglist = this.state.tags.map((tag, id) => {
+            taglist = this.state.tags
+                .sort((a, b) => sortByName(a,b))
+                .map((tag, id) => {
                return <div key={id}> <Tag selectedTags={this.state.selectedTags}
                                           parentId={this.state.tagId}
                                           item={tag}
