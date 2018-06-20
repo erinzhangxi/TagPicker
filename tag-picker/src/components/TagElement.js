@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 export default class TagElement extends Component {
     constructor(props) {
-     super(props);
+        super(props);
         this.state = {
             id: '',
             name: '',
@@ -10,6 +10,7 @@ export default class TagElement extends Component {
             parent: null,
             ancestors: []
         };
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
@@ -22,18 +23,24 @@ export default class TagElement extends Component {
             ancestors: tag.ancestors
         });
     }
+
+    handleClick(e) {
+        this.props.handleCheck(this.props.item._id);
+    }
+
     render() {
-    return (
-        <div className="row">
-
-        <a href="#" className="list-group-item list-group-item-action">
-
-            <div className="checkbox"
-            style={{paddingLeft:15}}>
-                <label><input type="checkbox" value=""/> {this.props.item.name}</label>
+        return (
+            <div className="row">
+                <a href="#" className="list-group-item list-group-item-action">
+                    <div className="checkbox"
+                         style={{paddingLeft:15}}>
+                        <label><input type="checkbox"
+                                      checked={this.props.selected}
+                                      onClick={this.handleClick}/>
+                            {this.props.item.name}</label>
+                    </div>
+                </a>
             </div>
-        </a>
-        </div>
-    )
+        )
     }
 }

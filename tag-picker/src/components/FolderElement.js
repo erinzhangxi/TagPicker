@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import TagList from './../containers/TagList.js'
 
 export default class FolderElement extends Component {
     constructor(props) {
@@ -31,9 +32,14 @@ export default class FolderElement extends Component {
                         <i className="fa fa-folder" aria-hidden="true"
                            style={{paddingRight: 10}}></i>
                         {/*<Link to={`${this.props.parentId}/${this.props.item._id}`}>*/}
-                        <Link to={`${this.props.item._id}`}>
+                        <Link to={{
+                            pathname: `${this.props.item._id}`,
+                            state: {
+                                selectedTags: this.props.selectedTags
+                            }}}>
                             Tag {this.props.item.name}
                         </Link>
+
                     </div>
                     <div className="col-1">
                         <i className="fa fa-angle-right"

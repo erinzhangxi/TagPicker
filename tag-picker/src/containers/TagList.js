@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import TagService from "../services/TagService";
 import Tag from './../components/Tag';
+import { createBrowserHistory } from 'history'
+
+const history = createBrowserHistory();
 
 
 export default class TagList extends Component {
@@ -9,22 +12,44 @@ export default class TagList extends Component {
         this.state = {
             tagId: '',
             tags: [],
-            selectedTags: []
+            selectedTags: this.props.selectedtags
         };
+
         this.tagService = TagService.instance;
         this.renderTagItems = this.renderTagItems.bind(this);
-        this.setTagId = this.setTagId.bind(this);
-        this.goBack = this.goBack.bind(this);
         this.findChildrenTags = this.findChildrenTags.bind(this);
-    }
-
-    goBack() {
-        this.props.history.goBack();
+        this.handleCheck = this.handleCheck.bind(this);
+        this.setSelectedTags = this.setSelectedTags.bind(this);
     }
 
     componentDidMount() {
-        this.setTagId(this.props.match.params.tagId);
-        this.findChildrenTags(this.props.match.params.tagId);
+        this.findChildrenTags(this.props.tagId);
+        this.setSelectedTags(this.props);
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.findChildrenTags(newProps.tagId);
+        this.setSelectedTags(newProps);
+    }
+    setSelectedTags(props) {
+        // if (this.props.selectedtags.length == 0) {
+        //     this.setState({
+        //         selectedTags: this.props.selectedtags
+        //     });
+        // } else {
+        //     console.log(this.props);
+        //     console.log(this.props.selectedtags);
+        //
+        //     const { selectedTagsFromPath } = this.props.selectedtags;
+        //     console.log("from path " + selectedTagsFromPath);
+        //     this.setState({
+        //         selectedTags: selectedTagsFromPath
+        //     });
+        // }
+
+        this.setState({
+            selectedTags: props.selectedtags
+        });
     }
 
     findChildrenTags(tagId) {
@@ -40,25 +65,20 @@ export default class TagList extends Component {
         this.setState({
             tags: children
         });
-        console.log("children length " + children.length);
     }
 
-    componentWillReceiveProps(newProps) {
-        this.setTagId(newProps.match.params.tagId);
-        this.findChildrenTags(newProps.match.params.tagId);
+    handleCheck(tagId) {
+        this.props.handleCheck(tagId);
     }
-
-    setTagId(tagId) {
-        this.setState({tagId: tagId});
-    }
-
 
     renderTagItems() {
         let taglist = null;
         if(this.state) {
             taglist = this.state.tags.map((tag, id) => {
-               return <div key={id}> <Tag parentId={this.state.tagId}
-                                          item={tag}/></div>
+               return <div key={id}> <Tag selectedTags={this.state.selectedTags}
+                                          parentId={this.state.tagId}
+                                          item={tag}
+                                          handleCheck={this.handleCheck}/></div>
              })
         }
         return (
@@ -69,9 +89,8 @@ export default class TagList extends Component {
         return (
             <div className="container-fluid">
                 <button type="button"
-                        onClick={() => this.goBack()}
+                        onClick={() => history.goBack()}
                         className="btn btn-secondary">Back</button>
-                <h4>Tag ID : {this.state.tagId}</h4>
                 <div className="list-group">
                     {this.renderTagItems()}
                 </div>

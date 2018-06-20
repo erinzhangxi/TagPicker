@@ -7,23 +7,39 @@ export default class Tag extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tagId: ''
+            tagId: this.props.item._id,
+            selected: false
         };
-        this.setTagId = this.setTagId.bind(this);
+        this.handleCheck = this.handleCheck.bind(this);
+        this.selectCheckBox = this.selectCheckBox.bind(this);
+        this.setSelected = this.setSelected.bind(this);
     }
 
     componentDidMount(){
-            this.setTagId(this.props.item._id);
+        this.selectCheckBox(this.props.selectedTags);
 
     }
-    setTagId(tagId) {
+    componentWillReceiveProps(newProps){
+        this.selectCheckBox(newProps.selectedTags);
+    }
+
+    selectCheckBox(selectedTags) {
+        if(selectedTags) {
+            for (var i = 0; i < selectedTags.length; i++) {
+                if (selectedTags[i] === this.state.tagId) {
+                    this.setSelected();
+                }
+            }
+        }
+    }
+    setSelected() {
         this.setState({
-            tagId: tagId
+            selected: true
         });
     }
 
-    componentWillReceiveProps(newProps) {
-        this.setTagId(newProps.item._id);
+    handleCheck(tagId) {
+        this.props.handleCheck(tagId);
     }
 
     render() {
@@ -31,9 +47,12 @@ export default class Tag extends Component {
             <div className="container-fluid">
                 {this.props.item.isFolder ?
                     <FolderElement parentId={this.props.parentId}
-                                   item={this.props.item}/>
+                                   item={this.props.item}
+                                   selectedTags={this.props.selectedTags}/>
                     :
-                    <TagElement item={this.props.item}/>}
+                    <TagElement item={this.props.item}
+                                handleCheck={this.handleCheck}
+                                selected={this.state.selected}/>}
             </div>
         );
     }

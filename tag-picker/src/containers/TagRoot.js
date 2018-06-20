@@ -8,12 +8,13 @@ export default class TagRoot extends Component {
         this.state = {
             tagId: '',
             tags: [],
-            selectedTags: []
+            selectedTags: this.props.selectedTags
         };
         this.tagService = TagService.instance;
         this.findAllTags = this.findAllTags.bind(this);
         this.findAllRootTags = this.findAllRootTags.bind(this);
         this.renderTagItems = this.renderTagItems.bind(this);
+        this.handleCheck = this.handleCheck.bind(this);
     }
 
     componentDidMount() {
@@ -39,13 +40,18 @@ export default class TagRoot extends Component {
             tags: children
         });
     }
+    handleCheck(tagId) {
+        this.props.handleCheck(tagId);
+    }
 
     renderTagItems() {
         let taglist = null;
         if(this.state) {
             taglist = this.state.tags.map((tag, id) => {
-                return <div key={id}> <Tag parentId={this.state.tagId}
-                                           item={tag}/></div>
+                return <div key={id}> <Tag selectedTags={this.props.selectedTags}
+                                           parentId={this.state.tagId}
+                                           item={tag}
+                                           handleCheck={this.handleCheck}/></div>
             })
         }
         return (
@@ -55,7 +61,6 @@ export default class TagRoot extends Component {
     render() {
         return (
             <div className="container-fluid">
-                <h4>Tag Root</h4>
                 <div className="list-group">
                     {this.renderTagItems()}
                 </div>
