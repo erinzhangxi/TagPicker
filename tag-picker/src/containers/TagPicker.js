@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import TagList from './TagList.js'
+import TagRoot from './TagRoot.js'
+import TagList from "./TagList";
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 
 export default class TagPicker extends Component {
     constructor(props) {
@@ -9,32 +11,31 @@ export default class TagPicker extends Component {
         };
 
         this.onTagSelectionChange = this.onTagSelectionChange.bind(this);
-        this.goBack = this.goBack.bind(this);
     }
 
     onTagSelectionChange() {
 
     }
 
-    goBack() {
-        alert("back button is clicked");
-    }
 
   render() {
     return (
+        <Router>
         <div className="container-fluid">
             <table className="table">
                 <thead>{this.state.title}</thead>
                 <tbody>
-
-                    <button type="button"
-                            onClick={() => this.goBack()}
-                            className="btn btn-secondary">Back</button>
-
-                   <TagList/>
+                <Link to="/"></Link>
+                 <Route exact path="/"
+                       component={TagRoot}>
+                 </Route>
+                   <Route exact path="/:tagId/"
+                          component={TagList}>
+                   </Route>
                 </tbody>
             </table>
         </div>
+        </Router>
     );
   }
 }

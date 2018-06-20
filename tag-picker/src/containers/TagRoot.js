@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import TagService from "../services/TagService";
 import Tag from './../components/Tag'
-import BrowserHistory from 'react-router'
 
-export default class TagList extends Component {
+export default class TagRoot extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,27 +11,26 @@ export default class TagList extends Component {
             selectedTags: []
         };
         this.tagService = TagService.instance;
+        this.findAllTags = this.findAllTags.bind(this);
+        this.findAllRootTags = this.findAllRootTags.bind(this);
         this.renderTagItems = this.renderTagItems.bind(this);
-        this.setTagId = this.setTagId.bind(this);
-        this.goBack = this.goBack.bind(this);
-        this.findChildrenTags = this.findChildrenTags.bind(this);
-    }
-
-    goBack() {
-        this.props.history.goBack();
     }
 
     componentDidMount() {
-        this.setTagId(this.props.match.params.tagId);
-        this.findChildrenTags(this.props.match.params.tagId);
+        this.findAllRootTags();
     }
 
-    findChildrenTags(tagId) {
+    findAllTags() {
         var tags = this.tagService.findAllTags();
+        this.setState({tags: tags});
+        return tags;
+    }
+    findAllRootTags() {
+        var tags = this.findAllTags();
         var children = [];
 
         for (var i = 0; i < tags.length; i++) {
-            if (tags[i].parent === this.props.match.params.tagId) {
+            if (tags[i].parent === null) {
                 children.push(tags[i]);
             }
         }
@@ -40,25 +38,14 @@ export default class TagList extends Component {
         this.setState({
             tags: children
         });
-        console.log("children length " + children.length);
     }
-
-    componentWillReceiveProps(newProps) {
-        this.setTagId(newProps.match.params.tagId);
-        this.findChildrenTags(newProps.match.params.tagId);
-    }
-
-    setTagId(tagId) {
-        this.setState({tagId: tagId});
-    }
-
 
     renderTagItems() {
         let taglist = null;
         if(this.state) {
             taglist = this.state.tags.map((tag, id) => {
-               return <div key={id}> <Tag item={tag}/></div>
-             })
+                return <div key={id}> <Tag item={tag}/></div>
+            })
         }
         return (
             taglist
@@ -67,10 +54,7 @@ export default class TagList extends Component {
     render() {
         return (
             <div className="container-fluid">
-                <button type="button"
-                        onClick={() => this.goBack()}
-                        className="btn btn-secondary">Back</button>
-                <h4>Tag ID : {this.state.tagId}</h4>
+                <h4>Tag Root</h4>
                 <div className="list-group">
                     {this.renderTagItems()}
                 </div>

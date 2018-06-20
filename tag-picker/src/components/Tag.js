@@ -6,6 +6,24 @@ import TagElement from './../components/TagElement'
 export default class Tag extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            tagId: ''
+        };
+        this.setTagId = this.setTagId.bind(this);
+    }
+
+    componentDidMount(){
+            this.setTagId(this.props.item._id);
+
+    }
+    setTagId(tagId) {
+        this.setState({
+            tagId: tagId
+        });
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.setTagId(newProps.item._id);
     }
 
     render() {
